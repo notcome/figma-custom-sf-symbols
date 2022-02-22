@@ -31,10 +31,16 @@
 		} }, '*');
 	}
 
-	function cancel() {
-		parent.postMessage({ pluginMessage: { 'type': 'cancel' } }, '*')
+	function handleClickSymbol(event) {
+		console.log(event.detail.name)
+		const message = {
+			pluginMessage: {
+				type: 'create-symbol',
+				symbol: event.detail
+			}
+		}
+		parent.postMessage(message, '*')
 	}
-
 
 	if (!window.onFigmaMessage) {
 		window.onFigmaMessage = 3
@@ -55,7 +61,7 @@
 	<Button on:click={createShapes} bind:disabled={disabled}>Create shapes</Button>
 	</div> -->
 
-	<SymbolList />
+	<SymbolList on:clickSymbol={handleClickSymbol}/>
 
 </div>
 

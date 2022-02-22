@@ -1,11 +1,18 @@
 <script>
     import symbols from '../../bundler/main.json'	
 	import Symbol from './Symbol'
+    import { createEventDispatcher } from 'svelte'
+
+	const dispatch = createEventDispatcher()
+
+    function clickSymbol(symbol) {
+        dispatch('clickSymbol', symbol)
+    }
 </script>
 
 <div class="symbol-list">
     {#each symbols as symbol}
-        <Symbol symbol={symbol} size={80} />
+        <Symbol symbol={symbol} size={80} on:click={() => clickSymbol(symbol)} />
     {/each}
 </div>
 

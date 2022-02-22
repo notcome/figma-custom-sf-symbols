@@ -16,7 +16,7 @@
     const rectWH = logicalSize - rectXY * 2
 </script>
 
-<div>
+<div on:click>
     <svg width={size} height={size}>
         <g transform={`scale(${displayScale}, ${displayScale})`}>
             <rect x={rectXY} y={rectXY} width={rectWH} height={rectWH} stroke="black" fill="none" rx="15" ry="15"/>
