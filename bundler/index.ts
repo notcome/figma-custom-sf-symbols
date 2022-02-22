@@ -358,7 +358,7 @@ async function load() {
         }
     }
 
-    console.log(JSON.stringify(symbols, null, 2))
+    await fs.writeFile('main.json', JSON.stringify(symbols, null, 2))
 }
 
 load()
