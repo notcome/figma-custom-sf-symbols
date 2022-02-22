@@ -6,6 +6,8 @@ import { terser } from 'rollup-plugin-terser';
 import svg from 'rollup-plugin-svg';
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy'
+import json from '@rollup/plugin-json'
+import sveltePreprocess from 'svelte-preprocess'
 
 /* Post CSS */
 import postcss from 'rollup-plugin-postcss';
@@ -24,11 +26,13 @@ export default [{
         file: 'src/build/bundle.js'
     },
     plugins: [
+        typescript(),
         svelte({
             compilerOptions: {
             	// enable run-time checks when not in production
             	dev: !production
-            }
+            },
+            preprocess: sveltePreprocess()
         }),
         
         // If you have external dependencies installed from
@@ -43,6 +47,7 @@ export default [{
         }),
         commonjs(),
         svg(),
+        json(),
         postcss({
             extensions: ['.css'],
             plugins: [cssnano()]

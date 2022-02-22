@@ -6,6 +6,7 @@
 
 	//import some Svelte Figma UI components
 	import { Button, Input, Label, SelectMenu } from 'figma-plugin-ds-svelte';
+	import SymbolList from './SymbolList'
 
 	//menu items, this is an array of objects to populate to our select menus
 	let menuItems = [
@@ -34,12 +35,16 @@
 		parent.postMessage({ pluginMessage: { 'type': 'cancel' } }, '*')
 	}
 
+
+	if (!window.onFigmaMessage) {
+		window.onFigmaMessage = 3
+	}
 </script>
 
 
 <div class="wrapper p-xxsmall">
 
-	<Label>Shape</Label>
+	<!-- <Label>Shape</Label>
 	<SelectMenu bind:menuItems={menuItems} bind:value={selectedShape} class="mb-xxsmall"/>
 	
 	<Label>Count</Label>
@@ -48,13 +53,14 @@
 	<div class="flex p-xxsmall mb-xsmall">
 	<Button on:click={cancel} variant="secondary" class="mr-xsmall">Cancel</Button>
 	<Button on:click={createShapes} bind:disabled={disabled}>Create shapes</Button>
-	</div>
+	</div> -->
+
+	<SymbolList />
 
 </div>
 
 
 <style>
-
 /* Add additional global or scoped styles here */
 
 </style>

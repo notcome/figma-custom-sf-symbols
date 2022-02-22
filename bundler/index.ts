@@ -103,8 +103,8 @@ function getTemplateHeight(dom: JSDOM): number {
 function parseSVGPath(data: string): string[] {
     let tokens: string[] = []
     const letter = /^[A-Za-z]/
-    const negnum = /^-[0-9]+(\.[0-9])?/
-    const posnum = /^[0-9]+(\.[0-9])?/
+    const negnum = /^-[0-9]+(\.[0-9]+)?/
+    const posnum = /^[0-9]+(\.[0-9]+)?/
 
     let current = data
     while (current.length > 0) {
