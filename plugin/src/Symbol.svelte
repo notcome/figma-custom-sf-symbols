@@ -16,12 +16,28 @@
     const rectWH = logicalSize - rectXY * 2
 </script>
 
-<!-- <p style="font-size: 0.8em">{symbol.name}</p> -->
-<svg width={size} height={size}>
-    <g transform={`scale(${displayScale}, ${displayScale})`}>
-        <rect x={rectXY} y={rectXY} width={rectWH} height={rectWH} stroke="black" fill="none" rx="15" ry="15"/>
-        <g transform={`translate(${xOffset}, ${yOffset})`}>
-            <path d={variant.paths.join(' ')} />
+<div>
+    <svg width={size} height={size}>
+        <g transform={`scale(${displayScale}, ${displayScale})`}>
+            <rect x={rectXY} y={rectXY} width={rectWH} height={rectWH} stroke="black" fill="none" rx="15" ry="15"/>
+            <g transform={`translate(${xOffset}, ${yOffset})`}>
+                <path d={variant.paths.join(' ')} />
+            </g>
         </g>
-    </g>
-</svg>
+    </svg>
+    <p>{symbol.name}</p>
+</div>
+
+<style>
+    p {
+        font-size: 0.8em;
+        margin: 0;
+        text-align: center;
+        overflow-wrap: break-word;
+        
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+</style>

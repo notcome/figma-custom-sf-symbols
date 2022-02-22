@@ -5,14 +5,14 @@
 
 <div class="symbol-list">
     {#each symbols as symbol}
-        <Symbol symbol={symbol} size={60} />
+        <Symbol symbol={symbol} size={80} />
     {/each}
 </div>
 
 <style>
 .symbol-list {
 	display: grid;
-	grid-template-columns: 60px 60px 60px;
+	grid-template-columns: 80px 80px 80px;
 	grid-gap: 10px;
 	justify-content: center;
 }
