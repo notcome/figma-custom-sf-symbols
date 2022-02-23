@@ -282,7 +282,6 @@ function getSymbolPaths_V3(symbol: Element): [string[], Hierarchy | null][] {
     return layers
 }
 
-
 async function loadSymbolHierarchyIntoSymbol(path: string, destination: SFSymbol) {
     const source = await fs.readFile(path, 'utf8')
     const dom = new JSDOM(source)
@@ -336,7 +335,7 @@ async function loadSymbol(name: string, root: string): Promise<SFSymbol> {
         symbols
     }
     try {
-        loadSymbolHierarchyIntoSymbol(`${root}/3.0/${name}.svg`, symbol)
+        await loadSymbolHierarchyIntoSymbol(`${root}/3.0/${name}.svg`, symbol)
     } catch(error) {
         console.error(`Failed to load 3.0 template for ${name}.`)
         console.error(error)

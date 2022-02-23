@@ -1,2 +1,3 @@
-# figma-custom-sf-symbols
+# Custom SF Symbols
+
 Use custom SF Symbols in your design!
