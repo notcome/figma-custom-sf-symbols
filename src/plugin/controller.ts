@@ -49,6 +49,7 @@ figma.ui.onmessage = (msg: MessageToFigma) => {
                 horizontal: 'SCALE',
                 vertical: 'SCALE',
             };
+            shape.locked = true;
             return shape;
         }
 
@@ -78,6 +79,15 @@ figma.ui.onmessage = (msg: MessageToFigma) => {
         } else {
             addShape(variant.paths.join(' '));
         }
+
+        const boundingFrame = figma.createFrame();
+        frame.appendChild(boundingFrame);
+        boundingFrame.name = 'Symbol Bounding Frame';
+        boundingFrame.resizeWithoutConstraints(variant.width, variant.height);
+        boundingFrame.x = (frameSize - variant.width) / 2;
+        boundingFrame.y = (frameSize - variant.height) / 2;
+        boundingFrame.visible = false;
+        boundingFrame.locked = true;
 
         const boundSize = (pointSize / 100) * frameSize;
         frame.resize(boundSize, boundSize);
