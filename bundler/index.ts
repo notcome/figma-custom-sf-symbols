@@ -1,6 +1,15 @@
 import { JSDOM } from 'jsdom'
 import * as fs from 'fs/promises'
 import process from 'process'
+import express from 'express'
+
+if (process.argv.length != 3) {
+    console.log('Usage: node index <path-to-your-folder>.')
+    console.log('The folder should contain two subfolders, one named 2.0 and the other 3.0. They should have 2.0 and 3.0 **symbols**, not **templates**.')
+    process.exit(-1)
+}
+
+const root = process.argv[2]
 
 type TemplateVersion = '2.0' | '3.0'
 type SymbolWeight = 'Ultralight' | 'Thin' | 'Light' | 'Regular' | 'Medium' | 'Semibold' | 'Bold' | 'Heavy' | 'Black'
@@ -336,8 +345,7 @@ async function loadSymbol(name: string, root: string): Promise<SFSymbol> {
     return symbol
 }
 
-async function load() {
-    const root = `${process.cwd()}/tests/resources`
+async function load(): Promise<string> {
     const path = root + '/2.0'
     const entries = await fs.readdir(path, { withFileTypes: true })
     const symbols: SFSymbol[] = []
@@ -358,7 +366,22 @@ async function load() {
         }
     }
 
-    await fs.writeFile('main.json', JSON.stringify(symbols, null, 2))
+    return JSON.stringify(symbols, null, 2)
 }
 
-load()
+const app = express()
+const port = 7413
+
+app.get('/', (_, res) => {
+    console.log('JSON requested.')
+    load().then(x => {
+        res.header("Access-Control-Allow-Origin", "*")
+        res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With")
+        res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS")
+        res.send(x)
+    })
+})
+
+app.listen(port, () => {
+    console.log(`SF Symbol server listening on port ${port}.`)
+})
